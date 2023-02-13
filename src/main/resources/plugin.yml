@@ -1,0 +1,3 @@
+name: BanPlugin
+version: '${project.version}'
+main: me.fodded.banplugin.Main
