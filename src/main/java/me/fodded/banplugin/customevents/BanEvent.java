@@ -27,6 +27,10 @@ public class BanEvent extends Event {
         this.staff_uuid = staff_uuid;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     @Override
     public HandlerList getHandlers() {
         return null;

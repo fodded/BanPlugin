@@ -1,10 +1,13 @@
 package me.fodded.banplugin.customevents;
 
+import lombok.Getter;
 import org.bukkit.event.*;
 import java.util.*;
 
+@Getter
 public class UnbanEvent extends Event
 {
+    private static final HandlerList handlers = null;
     public UUID staff_uuid;
     public UUID unbanned_uuid;
     public String staff_name;
@@ -19,6 +22,10 @@ public class UnbanEvent extends Event
         this.rating = rating;
         this.staff_uuid = staff_uuid;
         this.unbanned_uuid = unbanned_uuid;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     @Override
