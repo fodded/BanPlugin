@@ -7,7 +7,6 @@ import me.fodded.banplugin.utils.ChatUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Event;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -52,6 +51,9 @@ public class BanHandler {
 
         // sendMessageToReporters(String.valueOf(target.getUniqueId())); Reporting system is not ready yet
         setRating(target.getUniqueId(), false);
+        if(staff != null) {
+            staff.sendMessage(ChatUtil.format("&aYou have successfully banned " + target.getName()));
+        }
     }
 
     public void unbanPlayer(OfflinePlayer target, Player staff) {

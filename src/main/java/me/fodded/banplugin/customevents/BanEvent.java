@@ -1,12 +1,14 @@
 package me.fodded.banplugin.customevents;
 
 import lombok.Getter;
-import org.bukkit.event.*;
-import java.util.*;
+import org.bukkit.event.Event;
+import org.bukkit.event.HandlerList;
+
+import java.util.UUID;
 
 @Getter
 public class BanEvent extends Event {
-    private static final HandlerList handlers = null;
+    private static final HandlerList handlers = new HandlerList();
     public UUID staff_uuid;
     public UUID banned_uuid;
     public String reason;
@@ -33,6 +35,6 @@ public class BanEvent extends Event {
 
     @Override
     public HandlerList getHandlers() {
-        return null;
+        return handlers;
     }
 }
