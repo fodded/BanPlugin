@@ -74,7 +74,13 @@ public class BanHandler {
 
     private static void setRating(UUID uuid, boolean unbanned) {
         Main.getDatabaseConnection().execute(
-                "UPDATE `season_" + Main.getDatabaseConnection().getCurrentSeason() + "` SET `banned` = ? WHERE `uuid` = ?", unbanned, uuid.toString()
+                "UPDATE `season_" + (Main.getDatabaseConnection().getCurrentSeason()-2) + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
+        );
+        Main.getDatabaseConnection().execute(
+                "UPDATE `season_" + (Main.getDatabaseConnection().getCurrentSeason()-1) + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
+        );
+        Main.getDatabaseConnection().execute(
+                "UPDATE `season_" + Main.getDatabaseConnection().getCurrentSeason() + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
         );
     }
 

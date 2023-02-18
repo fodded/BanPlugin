@@ -119,7 +119,7 @@ public class Database {
         String date = format.format(new Date());
 
         long monthsBetween = ChronoUnit.MONTHS.between(
-                LocalDate.parse("2023-01-13").withDayOfMonth(1),
+                LocalDate.parse("2022-09-13").withDayOfMonth(1),
                 LocalDate.parse(date).withDayOfMonth(1));
 
         return (int) (monthsBetween + 1);
@@ -202,10 +202,14 @@ public class Database {
         return -1;
     }
 
-    public int getRating(final UUID uuid) {
-        final String request = "SELECT `rating` FROM `season_" + getCurrentSeason() + "` WHERE `uuid` = ?";
+    public int getRating(UUID uuid) {
+         String request = "SELECT `rating` FROM `season_" + getCurrentSeason() + "` WHERE `uuid` = ?";
         try {
-            final ResultSet resultSet = query(request, uuid.toString());
+            PreparedStatement preparedStatement = Main.getPlugin().getConnection().prepareStatement(request);
+            preparedStatement.setString(1, uuid.toString());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+
             if (resultSet != null) {
                 return resultSet.getInt("rating");
             }
