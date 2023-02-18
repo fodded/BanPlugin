@@ -236,4 +236,21 @@ public class Database {
         }
         return pos + 1;
     }
+
+    public Boolean tableExists(String tableName) {
+        try {
+            PreparedStatement preparedStatement = Main.getPlugin().getConnection().prepareStatement("SELECT count(*) "
+                    + "FROM information_schema.tables "
+                    + "WHERE table_name = ?"
+                    + "LIMIT 1;");
+            preparedStatement.setString(1, tableName);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            return resultSet.getInt(1) != 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

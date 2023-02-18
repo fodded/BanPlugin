@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import javax.xml.crypto.Data;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -73,12 +74,16 @@ public class BanHandler {
     }
 
     private static void setRating(UUID uuid, boolean unbanned) {
-        Main.getDatabaseConnection().execute(
-                "UPDATE `season_" + (Main.getDatabaseConnection().getCurrentSeason()-2) + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
-        );
-        Main.getDatabaseConnection().execute(
-                "UPDATE `season_" + (Main.getDatabaseConnection().getCurrentSeason()-1) + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
-        );
+        if(Main.getDatabaseConnection().tableExists("season_" + (Main.getDatabaseConnection().getCurrentSeason()-2))) {
+            Main.getDatabaseConnection().execute(
+                    "UPDATE `season_" + (Main.getDatabaseConnection().getCurrentSeason() - 2) + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
+            );
+        }
+        if(Main.getDatabaseConnection().tableExists("season_" + (Main.getDatabaseConnection().getCurrentSeason()-1))) {
+            Main.getDatabaseConnection().execute(
+                    "UPDATE `season_" + (Main.getDatabaseConnection().getCurrentSeason() - 1) + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
+            );
+        }
         Main.getDatabaseConnection().execute(
                 "UPDATE `season_" + Main.getDatabaseConnection().getCurrentSeason() + "` SET `banned` = ? WHERE `uuid` = ?", !unbanned, uuid.toString()
         );
