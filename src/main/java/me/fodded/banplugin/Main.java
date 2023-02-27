@@ -63,7 +63,7 @@ public class Main extends JavaPlugin {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            String url = "jdbc:mysql://" + this.getConfig().getString("ip") + ":" + this.getConfig().getString("port") + "/statistics?useUnicode=true&amp;characterEncoding=UTF-8";
+            String url = "jdbc:mysql://" + this.getConfig().getString("ip") + ":" + this.getConfig().getString("port") + "/" + this.getConfig().getString("database") + "?useUnicode=true&amp;characterEncoding=UTF-8";
             String user = this.getConfig().getString("user");
             String password = this.getConfig().getString("password");
 
